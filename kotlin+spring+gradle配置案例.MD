@@ -42,3 +42,26 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 ```
+
+## 基础的kotlin代码
+```kotlin
+data class Greeting(val id: Long, val content: String)
+
+@RestController
+class GreetingController {
+    val counter = AtomicLong()
+
+    @GetMapping("/greeting")
+    fun greeting(@RequestParam(value = "name", defaultValue = "World") name: String) =
+        Greeting(counter.incrementAndGet(), "Hello, $name")
+}
+
+@SpringBootApplication
+class Application
+
+fun main(args: Array<String>) {
+    SpringApplication.run(Application::class.java, *args)
+}
+```
+
+## 浏览器直接打开：[http://localhost:8080/greeting?name=Kotin](http://localhost:8080/greeting?name=Kotin)，看效果
